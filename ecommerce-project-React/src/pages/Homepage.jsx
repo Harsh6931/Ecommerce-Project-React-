@@ -6,21 +6,30 @@ import { Header } from "../components/Header"
 
 export function Homepage() {
   const [Products,setProducts]=useState([]);
+  const [cart,setCart] = useState([]);
+
   useEffect( () => {
     axios.get('http://localhost:3000/api/products').then((response) => {
     setProducts(response.data);
   });
-  }, []);  //dependency array
+
+      axios.get('http://localhost:3000/api/cart-items').then((response) => {
+    setCart(response.data);
+  });
+
+  }); 
+
+  
 
   return (
     <>
       <title>Ecommerce Site</title>
 
-      <Header />
+      <Header cart={cart}/>
 
       <div className="home-page">
         <div className="products-grid">
-          {products.map((product) => {
+          {Products.map((product) => {
             return (
               <div key = {product.id} className="product-container">
                 <div className="product-image-container">
