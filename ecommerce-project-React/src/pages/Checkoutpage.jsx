@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 
 
-export function CheckOutpage({ cart }) {
+export function CheckOutpage({ cart, loadCart }) {
 
   const [deliveryOption, setDeliveryOption] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState([]);
@@ -100,8 +100,16 @@ export function CheckOutpage({ cart }) {
                         if (option.priceCents > 0) {
                           priceString = `${(option.priceCents / 100).toFixed(2)}SHIPPING`
                         }
+
+                        const updateDeliveryFunction = async () =>{
+                          await axios.put(`http://localhost:3000/api/cart-items/${cartItem.productId}`,{
+                            deliveryOptionId: option.id,
+                          });
+                          await loadCart();
+                        }
                         return (
-                          <div key={option.id} className="delivery-option">
+                          <div key={option.id} className="delivery-option" 
+                          onClick={updateDeliveryFunction}>
                             <input
                               type="radio"
                               checked={option.id === cartItem.deliveryOptionId}
