@@ -4,9 +4,9 @@ import "./Homepage.css";
 import { Header } from "../components/Header"
 
 
-export function Homepage() {
+export function Homepage({cart}) {
   const [Products,setProducts]=useState([]);
-  const [cart,setCart] = useState([]);
+  
 
   useEffect( () => {
     axios.get('http://localhost:3000/api/products').then((response) => {
