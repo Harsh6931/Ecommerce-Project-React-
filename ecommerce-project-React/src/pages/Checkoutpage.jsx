@@ -64,10 +64,16 @@ export function CheckOutpage({ cart, loadCart }) {
 
         <div className="checkout-grid">
           <div className="order-summary">
+
             {deliveryOption.length > 0 && cart.map((cartItem) => {
               const selectedDeliveryOption = deliveryOption.find((deliveryOption) => {
                 return (deliveryOption.id === cartItem.deliveryOptionId);
               })
+
+              const deleteCartItem = async () =>{
+                await axios.delete(`http://localhost:3000/api/cart-items/${cartItem.productId}`);
+                await loadCart();  // easy deleteing data using delete request HTTP
+              }
               return (
                 <div key={cartItem.productId} className="cart-item-container">
                   <div className="delivery-date">
@@ -93,7 +99,8 @@ export function CheckOutpage({ cart, loadCart }) {
                         <span className="update-quantity-link link-primary">
                           Update
                         </span>
-                        <span className="delete-quantity-link link-primary">
+                        <span className="delete-quantity-link link-primary"
+                        onClick={deleteCartItem}>
                           Delete
                         </span>
                       </div>
