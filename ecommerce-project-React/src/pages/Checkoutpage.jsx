@@ -15,11 +15,20 @@ export function CheckOutpage({ cart, loadCart }) {
         setDeliveryOption(response.data);
       });
 
+    /*axios.get('http://localhost:3000/api/payment-summary')
+      .then((response) => {
+        setPaymentSummary(response.data);
+      });*/
+  }, []);
+
+  useEffect(() => {
+
     axios.get('http://localhost:3000/api/payment-summary')
       .then((response) => {
         setPaymentSummary(response.data);
       });
-  }, []);
+  }, [cart]); // to update the payment summary along with when cart changes 
+
 
   return (
 
@@ -113,6 +122,7 @@ export function CheckOutpage({ cart, loadCart }) {
                             <input
                               type="radio"
                               checked={option.id === cartItem.deliveryOptionId}
+                              onChange={() =>{}} // just to bypass the warning
                               className="delivery-option-input"
                               name={`delivery-option-${cartItem.productId}`}
                             />
