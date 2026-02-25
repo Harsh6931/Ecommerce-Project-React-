@@ -33,7 +33,7 @@ export function Order({ cart }) {
                                         </div>
                                         <div className="order-total">
                                             <div className="order-header-label">Total:</div>
-                                            <div>${(order.totalCostCents/100).toFixed(2)}</div>
+                                            <div>${(order.totalCostCents / 100).toFixed(2)}</div>
                                         </div>
                                     </div>
 

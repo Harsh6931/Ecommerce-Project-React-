@@ -4,7 +4,7 @@ import "./Homepage.css";
 import { Header } from "../components/Header"
 
 
-export function Homepage({cart}) {
+export function Homepage({cart, loadCart}) {
   const [Products,setProducts]=useState([]);
 
 
@@ -70,7 +70,15 @@ export function Homepage({cart}) {
                   Added
                 </div>
 
-                <button className="add-to-cart-button button-primary">
+                <button className="add-to-cart-button button-primary"
+                onClick={async ()=> {
+                  await axios.post('http://localhost:3000/api/cart-items',{
+                    productId: product.id,
+                    quantity:1
+
+                  });
+                  await loadCart();  //update the cart on screen
+                }}>
                   Add to Cart
                 </button>
               </div>
